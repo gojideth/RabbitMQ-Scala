@@ -1,0 +1,2 @@
+# RabbitMQ-Scala
+Learning RabbitMQ
