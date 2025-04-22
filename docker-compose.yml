@@ -1,0 +1,26 @@
+services:
+  rabbitmq:
+    image: rabbitmq:3.11-management
+    hostname: rabbitmq
+    ports:
+      - "5672:5672"     # AMQP port
+      - "15672:15672"   # Management UI
+    environment:
+      RABBITMQ_DEFAULT_USER: admin
+      RABBITMQ_DEFAULT_PASS: 1234
+
+  producer:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: ["Producer"]
+    depends_on:
+      - rabbitmq
+
+  consumer:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: ["Consumer"]
+    depends_on:
+      - rabbitmq
